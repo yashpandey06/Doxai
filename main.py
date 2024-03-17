@@ -1,12 +1,31 @@
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from PyPDF2 import PdfReader
 import requests
 import tempfile
 import os
 
 app = FastAPI()
-API_TOKEN=os.environ.get('API_TOKEN')
+API_TOKEN = os.environ.get('API_TOKEN')
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080", 
+      "http://localhost:3000", 
+        "http://localhost:5173", 
+    
+]
+
+# CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
