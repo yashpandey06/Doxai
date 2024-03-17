@@ -4,18 +4,18 @@ from PyPDF2 import PdfReader
 import requests
 import tempfile
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
 app = FastAPI()
-API_TOKEN = os.environ.get('API_TOKEN')
+API_TOKEN =os.getenv('API_TOKEN')
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-
-
+# print(API_TOKEN)
 origins = [
     "http://localhost",
     "http://localhost:8080", 
-      "http://localhost:3000", 
-        "http://localhost:5173", 
-    
+    "http://localhost:8000", 
+    "http://localhost:3000", 
+    "http://localhost:5173", 
 ]
 
 # CORS Middleware
